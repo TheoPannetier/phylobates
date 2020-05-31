@@ -1,11 +1,12 @@
 Package: phylobates
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Tidy utilities to tread in phlyogenetic trees
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Théo Pannetier
+Maintainer: Théo Pannetier <t.s.c.pannetier@rug.nl>
+Description: A set of tools to work with phylogenetic trees, 
+    including tidy revamps of ape and TreePar built upon tidyverse functions, 
+    made compatible to work with ggplot.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
