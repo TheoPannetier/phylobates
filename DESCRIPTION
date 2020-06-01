@@ -15,6 +15,7 @@ Roxygen: list(markdown = TRUE)
 Suggests: 
     testthat
 Imports: 
+    stats,
     magrittr,
     tibble,
     dplyr

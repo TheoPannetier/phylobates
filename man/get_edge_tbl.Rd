@@ -12,15 +12,16 @@ get_edge_tbl(phylo)
 (not stem), and be binary (no hard polytomies).}
 }
 \value{
-a \code{tibble} with five columns
+a \code{tibble} with one observation per branch and five variables:
 \itemize{
 \item \code{parent_node} ID of the parent node
 \item \code{child_node} ID of the child node
-\item \code{is_tip} logical, is the node a tip (\code{TRUE}) of the tree or an
+\item \code{is_tip} logical, is the (child) node a tip (\code{TRUE}) of the tree or an
 internal node (\code{FALSE})
 \item \code{edge_length} numeric length of the edge between parent and child,
-can be the time to next splitting event or a molecular distance
-\item \code{time} for timetrees, the time of the node relative to present.
+i.e. the branch length
+\item \code{time} for timetrees, the time of the node relative to present (taken as
+the latest tip(s) in the tree)
 }
 }
 \description{

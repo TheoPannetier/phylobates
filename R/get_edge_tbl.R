@@ -4,18 +4,16 @@
 #' whether a node is a tip or internal), edge (branch) lengths and timing of
 #' nodes (branching times).
 #'
-#' @param phylo an object of the class `phylo` as introduced in
-#' [ape][ape::read.tree]. The phylogeny must start with the crown node
-#' (not stem), and be binary (no hard polytomies).
-#'
-#' @return a `tibble` with five columns
+#' @inheritParams pars_doc
+#' @return a `tibble` with one observation per branch and five variables:
 #'  * `parent_node` ID of the parent node
 #'  * `child_node` ID of the child node
-#'  * `is_tip` logical, is the node a tip (`TRUE`) of the tree or an
+#'  * `is_tip` logical, is the (child) node a tip (`TRUE`) of the tree or an
 #'  internal node (`FALSE`)
 #'  * `edge_length` numeric length of the edge between parent and child,
-#'  can be the time to next splitting event or a molecular distance
-#'  * `time` for timetrees, the time of the node relative to present.
+#'  i.e. the branch length
+#'  * `time` for timetrees, the time of the node relative to present (taken as
+#'  the latest tip(s) in the tree)
 #'
 #' @author Théo Pannetier
 #' @export
