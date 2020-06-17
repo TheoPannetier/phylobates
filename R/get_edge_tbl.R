@@ -20,6 +20,8 @@
 #'
 get_edge_tbl <- function(phylo) {
 
+  child_node <- NULL # ignore
+
   branching_times <- numeric(phylo$Nnode)
   ntips <- length(phylo$tip.label)
   crown_node <- ntips + 1
@@ -27,7 +29,7 @@ get_edge_tbl <- function(phylo) {
   edge_tbl <- tibble::tibble(
     "parent_node" = phylo$edge[, 1],
     "child_node" = phylo$edge[, 2],
-    "is_tip" = "child_node" <= ntips,
+    "is_tip" = child_node <= ntips,
     "edge_length" = phylo$edge.length
   ) %>%
     # entry for crown node
@@ -37,21 +39,27 @@ get_edge_tbl <- function(phylo) {
         "child_node" = crown_node,
         "is_tip" = FALSE,
         "edge_length" = 0
-      )
+      ),
+      . # crown comes first
     ) %>%
     # initialise times
     dplyr::mutate(
-      "time" = ifelse("child_node" == crown_node, 0, NA)
+      "time_child" = ifelse(child_node == crown_node, 0, NA)
     )
 
   # fill times
-  for (i in 1:(nrow(edge_tbl) - 1)) { # skip last row (crown)
+  for (i in 2:nrow(edge_tbl)) { # skip first row (crown)
     parent_i <- which(edge_tbl$child_node == edge_tbl$parent_node[i])
-    edge_tbl$time[i] <- edge_tbl$edge_length[i] + edge_tbl$time[parent_i]
+    edge_tbl$time_child[i] <- edge_tbl$edge_length[i] + edge_tbl$time_child[parent_i]
   }
+
   # transform times relative to present
-  crown_age <- max(edge_tbl$time)
-  edge_tbl$time <- round(edge_tbl$time - crown_age, 3)
+  crown_age <- max(edge_tbl$time_child)
+  edge_tbl <- edge_tbl %>%
+    dplyr::mutate(
+      time_child = time_child - crown_age %>% round(3),
+      time_parent = time_child - edge_length %>% round(3)
+    )
 
   return(edge_tbl)
 }
