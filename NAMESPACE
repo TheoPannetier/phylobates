@@ -3,4 +3,6 @@
 export("%>%")
 export(get_edge_tbl)
 export(get_ltt_func)
+export(get_summary_ltt)
+export(plot_ltt)
 importFrom(magrittr,"%>%")
