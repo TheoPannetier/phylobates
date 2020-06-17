@@ -16,15 +16,15 @@
 
 get_ltt_tbl <- function(phylo) {
 
-  time <- NULL
-  N <- NULL
-  event <- NULL
-  increment <- NULL
-  time <- NULL
+  time_child <- NULL # ignore
+  N <- NULL # ignore
+  event <- NULL # ignore
+  increment <- NULL # ignore
+  time <- NULL # ignore
 
   ltt_tbl <- get_edge_tbl(phylo) %>%
     dplyr::transmute(
-      "time" = time,
+      "time" = time_child,
       "event" = dplyr::case_when(
         is.na(parent_node) ~ "crown",
         !is_tip ~ "speciation",
