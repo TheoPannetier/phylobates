@@ -20,4 +20,6 @@ Imports:
     tibble,
     dplyr,
     purrr,
-    ggplot2
+    ggplot2,
+    tidyr,
+    TreeSim

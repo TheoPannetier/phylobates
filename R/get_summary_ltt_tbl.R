@@ -10,26 +10,29 @@
 #' @author Théo Pannetier
 #' @export
 
-get_summary_ltt <- function(phylos, time_seq) {
+get_summary_ltt_tbl <- function(phylos, time_seq) {
 
-  summary_func <- mean
+  ltts <- TreeSim::LTT.plot.gen(list(phylos))
+  # drop avg LTT
+  ltts[[1]] <- NULL
 
   ltt_funcs <- purrr::map(
-    phylos,
-    function(x) get_ltt_func(x)
-  )
+    ltts,
+    function(ltt) {
+      ltt_func <- stats::stepfun(
+        x = ltt[-1, 1],
+        y = ltt[, 2]
+      )
+      return(ltt_func)
+    })
 
-  combined_ltt_tbl <- expand_grid(
-    "t" = time_seq,
-    "i" = seq_along(phylos)
+  summary_tbl <- tidyr::expand_grid(
+    "i" = seq_along(ltt_funcs),
+    "t" = time_seq
   ) %>%
     dplyr::mutate(
-      # Get n at time t for each tree i
-      "n" = purrr::map2_dbl(i, t, function(i, t) ltt_funcs[[i]](t)
-      )
-    )
-
-  summary_ltt <- combined_ltt_tbl %>%
+      "n" = purrr::map2_dbl(i, t, function(i, t) ltt_funcs[[i]](t))
+    ) %>%
     dplyr::group_by(t) %>%
     dplyr::summarise(
       "mean_n" = mean(n),
@@ -40,5 +43,5 @@ get_summary_ltt <- function(phylos, time_seq) {
       "qt_10" = quantile(n, 0.10),
       "qt_90" = quantile(n, 0.90)
     )
-  return(summary_ltt)
+  return(summary_tbl)
 }
