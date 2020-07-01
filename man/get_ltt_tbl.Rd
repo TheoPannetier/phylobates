@@ -18,13 +18,13 @@ a \code{tibble} with one observation per node and two variables:
 the tree)
 \item \code{N} number of lineages or species in the phylogeny at this point in time
 }
-
-@author Théo Pannetier
-@export
 }
 \description{
 Pairs the time of every node in the tree with the number of species
 in the tree at that point in time, i.e. lineages-through-time if the tree is
 reconstructed, or species-through-time if the tree includes lineages extinct
 before present.
+}
+\author{
+Théo Pannetier
 }

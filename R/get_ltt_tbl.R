@@ -11,8 +11,8 @@
 #'  the tree)
 #'  * `N` number of lineages or species in the phylogeny at this point in time
 #'
-#'  @author Théo Pannetier
-#'  @export
+#' @author Théo Pannetier
+#' @export
 
 get_ltt_tbl <- function(phylo) {
 
@@ -44,7 +44,11 @@ get_ltt_tbl <- function(phylo) {
       "N" = cumsum(increment)
     ) %>%
     # drop unused variables
-    dplyr::select(time, N)
+    dplyr::select(time, N) %>%
+    # join last point to present
+    tibble::add_row(
+      "time" = 0, "N" = dplyr::last(.$N)
+    )
 
   return(ltt_tbl)
 }
