@@ -24,7 +24,7 @@ get_ltt_tbl <- function(phylo) {
 
   ltt_tbl <- get_edge_tbl(phylo) %>%
     dplyr::transmute(
-      "time" = time_child %>% round(7),
+      "time" = time_child %>% round(3),
       "event" = dplyr::case_when(
         is.na(parent_node) ~ "crown",
         !is_tip ~ "speciation",
