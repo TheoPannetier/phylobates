@@ -7,5 +7,5 @@ and [TreePar](https://cran.r-project.org/web/packages/TreeSim/index.html) built 
 
 Branch|[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)
 ---|---
-`master`|[![Build Status](https://travis-ci.org/TheoPannetier/comrad.svg?branch=master)](https://travis-ci.org/TheoPannetier/comrad)
-`develop`|[![Build Status](https://travis-ci.org/TheoPannetier/comrad.svg?branch=develop)](https://travis-ci.org/TheoPannetier/comrad)
+`master`|[![Build Status](https://travis-ci.org/TheoPannetier/comrad.svg?branch=master)](https://travis-ci.org/TheoPannetier/phylobates)
+`develop`|[![Build Status](https://travis-ci.org/TheoPannetier/comrad.svg?branch=develop)](https://travis-ci.org/TheoPannetier/phylobates)
