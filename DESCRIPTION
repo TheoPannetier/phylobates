@@ -1,7 +1,7 @@
 Package: phylobates
 Type: Package
 Title: Tidy utilities to tread in phylogenetic trees
-Version: 0.1.0
+Version: 0.2.0
 Author: Théo Pannetier
 Maintainer: Théo Pannetier <t.s.c.pannetier@rug.nl>
 Description: A set of tools to work with phylogenetic trees, 
@@ -22,4 +22,5 @@ Imports:
     purrr,
     ggplot2,
     tidyr,
-    TreeSim
+    TreeSim,
+    ape

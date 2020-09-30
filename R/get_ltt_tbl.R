@@ -16,6 +16,10 @@
 
 get_ltt_tbl <- function(phylo) {
 
+  if (!ape::is.rooted(phylo)) {
+    stop("\"phylo\" must be rooted.")
+  }
+
   time_child <- NULL # ignore
   N <- NULL # ignore
   event <- NULL # ignore
@@ -26,7 +30,7 @@ get_ltt_tbl <- function(phylo) {
     dplyr::transmute(
       "time" = time_child %>% round(3),
       "event" = dplyr::case_when(
-        is.na(parent_node) ~ "crown",
+        is.na(parent_node) ~ phylobates::stem_or_crown(phylo),
         !is_tip ~ "speciation",
         is_tip & time < 0 ~ "extinction",
         is_tip & time == 0 ~ "present"
@@ -37,6 +41,7 @@ get_ltt_tbl <- function(phylo) {
     # compute the running number of lineages from event sequence
     dplyr::mutate(
       "increment" = dplyr::case_when(
+        event == "stem" ~ 1,
         event == "crown" ~ 2,
         event == "speciation" ~ 1,
         event == "extinction" ~ -1
